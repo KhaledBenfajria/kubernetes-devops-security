@@ -15,7 +15,7 @@ pipeline {
       }
       stage ('docker build and push') {
 	 steps {
-		 withwithDockerRegistry([credentailsId:"dockerhub" , url:""]){		 
+		 withDockerRegistry([credentailsId:"dockerhub" , url:""]){		 
              		sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
              		sh 'docker push khaledbenfajria/devsecops:1.0'
 		 }	 
