@@ -16,15 +16,14 @@ pipeline {
       stage ('docker build and push') {
          steps {
                  withDockerRegistry([credentailsId:"dockerhub" , url:""]){
-                        sh 'echo "aleardy done"' 
-                        #sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
-                        #sh 'docker push khaledbenfajria/devsecops:1.0'
+                        sh 'docker build -t khaledbenfajria/devsecops:2.0 .'
+                        sh 'docker push khaledbenfajria/devsecops:2.0'
                  }       
          }
       }
       stage ("deploy on k8s"){
           steps {
-             sh 'sed -i "s+replace+khaledbenfajria/devsecops:1.0+g" ' ./k8s_deployment_service.yaml
+             sh 'sed -i "s+replace+khaledbenfajria/devsecops:2.0+g" ' ./k8s_deployment_service.yaml
              kubectl apply -f k8s_deployment_service.yaml
           }
       }
