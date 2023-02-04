@@ -10,16 +10,26 @@ pipeline {
         } 
       stage ('test2stage'){
           steps {
-	     sh "mvn test"
-	  }
+             sh "mvn test"
+          }
       }
       stage ('docker build and push') {
-	 steps {
-		 withDockerRegistry([credentialsId:"dockerhub" , url:""]){		 
-             		sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
-             		sh 'docker push khaledbenfajria/devsecops:1.0'
-		 }	 
+         steps {
+                 withDockerRegistry([credentailsId:"dockerhub" , url:""]){
+                        sh 'echo "aleardy done"' 
+                        #sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
+                        #sh 'docker push khaledbenfajria/devsecops:1.0'
+                 withDockerRegistry([credentialsId:"dockerhub" , url:""]){               
+                        sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
+                        sh 'docker push khaledbenfajria/devsecops:1.0'
+                 }       
          }
+      }
+      stage ("deploy on k8s"){
+          steps {
+             sh 'sed -i "s+replace+khaledbenfajria/devsecops:1.0+g" ' ./k8s_deployment_service.yaml
+             kubectl apply -f k8s_deployment_service.yaml
+          }
       }
 
     }
