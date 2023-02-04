@@ -15,8 +15,8 @@ pipeline {
       }
       stage ('docker build and push') {
 	 steps {
-             sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
-             sh 'docker push khaledbenfajria/devsecops:1.0'
+             sh 'sudo docker build -t khaledbenfajria/devsecops:1.0 .'
+             sh 'sudo docker push khaledbenfajria/devsecops:1.0'
          }
       }
 
