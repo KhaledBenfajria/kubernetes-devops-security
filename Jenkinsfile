@@ -23,7 +23,7 @@ pipeline {
         }
         stage ("k8s") {
             steps {
-                sh 'sed -i "s+replace+khaledbenfajria/devsecops:1.0+g" ' ./k8s_deployment_service.yaml
+                sh 'sed -i "s+replace+khaledbenfajria/devsecops:1.0+g" ./k8s_deployment_service.yaml'
                 sh 'kubectl apply -f k8s_deployment_service.yaml'
             }
         }
