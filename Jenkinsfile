@@ -16,14 +16,14 @@ pipeline {
         stage ('docker build and push') {
             steps {
                 withDockerRegistry([credentialsId:"dockerhub" , url:""]) {
-                    sh 'docker build -t khaledbenfajria/devsecops:2.0 .'
-                    sh 'docker push khaledbenfajria/devsecops:2.0'
+                    sh 'docker build -t khaledbenfajria/devsecops:3.0 .'
+                    sh 'docker push khaledbenfajria/devsecops:3.0'
                 }
             }
         }
         stage ("k8s") {
             steps {
-                sh 'sed -i "s+replace+khaledbenfajria/devsecops:1.0+g" ./k8s_deployment_service.yaml'
+                sh 'sed -i "s+replace+khaledbenfajria/devsecops:3.0+g" ./k8s_deployment_service.yaml'
                 sh 'kubectl apply -f k8s_deployment_service.yaml'
             }
         }
