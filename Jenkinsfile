@@ -29,8 +29,10 @@ pipeline {
         }
         stage ("k8s") {
             steps {
-                sh 'sed -i "s+replace+khaledbenfajria/devsecops:3.0+g" ./k8s_deployment_service.yaml'
-                sh 'kubectl apply -f /home/bob/k/k8s_deployment_service.yaml'
+                withKubeConfig([credentialsId: "kubeconfig"]){
+                    sh 'sed -i "s+replace+khaledbenfajria/devsecops:3.0+g" ./k8s_deployment_service.yaml'
+                    sh 'kubectl apply -f /home/bob/k/k8s_deployment_service.yaml'
+                }
             }
         }
 
