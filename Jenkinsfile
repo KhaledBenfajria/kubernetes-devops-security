@@ -13,10 +13,6 @@ pipeline {
 	     sh "mvn test"
 	  }
       }
-      stage (docker build and push)
-           steps {
-             sh "docker build -t khaledbenfajria/devsecops:1.0 ."
-             docker push khaledbenfajria/devsecops:1.0
-          }  
+
     }
 }
