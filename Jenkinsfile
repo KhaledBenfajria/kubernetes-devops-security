@@ -19,9 +19,6 @@ pipeline {
                         sh 'echo "aleardy done"' 
                         #sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
                         #sh 'docker push khaledbenfajria/devsecops:1.0'
-                 withDockerRegistry([credentialsId:"dockerhub" , url:""]){               
-                        sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
-                        sh 'docker push khaledbenfajria/devsecops:1.0'
                  }       
          }
       }
