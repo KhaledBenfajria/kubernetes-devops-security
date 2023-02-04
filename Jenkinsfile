@@ -2,18 +2,24 @@ pipeline {
     agent any
 
     stages {
-        stage ('Build Artifact') {
+        stage ('Build Artifact - Maven') {
             steps {
                 sh "mvn clean package -DskipTests=true"
                 archive './target/*.jar'
             }
         }
-        stage ('test2stage') {
+        stage ('Unit Tests - JUnit and Jacoco') {
             steps {
                 sh "mvn test"
             }
+            post {
+               always {
+                  junit 'target/surefire-reports/*.xml'
+                  jacoco execPattern: 'target/jacoco.exec'
+               }
+            }
         }
-        stage ('docker build and push') {
+        stage ('Build & Push docker image') {
             steps {
                 withDockerRegistry([credentialsId:"dockerhub" , url:""]) {
                     sh 'docker build -t khaledbenfajria/devsecops:3.0 .'
