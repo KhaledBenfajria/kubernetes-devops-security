@@ -14,8 +14,10 @@ pipeline {
 	  }
       }
       stage (docker build and push){
-	sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
-        sh 'docker push khaledbenfajria/devsecops:1.0'
+	 steps{
+             sh 'docker build -t khaledbenfajria/devsecops:1.0 .'
+             sh 'docker push khaledbenfajria/devsecops:1.0'
+         }
       }
 
     }
